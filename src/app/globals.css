@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nav-h: 76px;
+  --header-stack-h: 112px;
+  --font-body: "Inter Variable";
+  --font-heading: "Plus Jakarta Sans Variable";
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@layer base {
+  h1, h2, h3, h4, h5 { @apply font-heading tracking-tight text-navy; }
+  ::selection { background: #f28c28; color: #fff; }
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary { @apply btn bg-accent text-white shadow-glow hover:bg-accent-hover hover:-translate-y-0.5; }
+  .btn-dark { @apply btn bg-navy text-white hover:bg-navy-600 hover:-translate-y-0.5 shadow-card; }
+  .btn-outline { @apply btn border border-navy/15 bg-white text-navy hover:border-navy hover:-translate-y-0.5; }
+  .btn-ghost { @apply btn text-navy hover:bg-grey-100; }
+  .btn-shine::after {
+    content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%);
+    transition: transform .8s ease;
+  }
+  .btn-shine:hover::after { transform: translateX(120%); }
+
+  .input {
+    @apply w-full rounded-lgx border border-grey-200 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-grey-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
+  }
+  .label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-grey-600; }
+  .card { @apply rounded-xl2 bg-white shadow-soft; }
+  .eyebrow { @apply inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-text; }
+  .section { @apply py-16 md:py-24; }
+  .h-section { @apply text-3xl font-extrabold md:text-5xl; }
+  .glass { @apply bg-white/70 backdrop-blur-xl backdrop-saturate-150; }
+  .text-gradient { @apply bg-gradient-to-r from-accent via-accent-dark to-accent bg-clip-text text-transparent; }
+  .prose-mn h2 { @apply mt-10 mb-3 text-2xl font-bold; }
+  .prose-mn h3 { @apply mt-6 mb-2 text-lg font-bold; }
+  .prose-mn p { @apply mb-4 leading-relaxed text-grey-600; }
+  .prose-mn ul { @apply mb-4 list-disc space-y-1.5 pl-5 text-grey-600; }
+  .prose-mn ol { @apply mb-4 list-decimal space-y-1.5 pl-5 text-grey-600; }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+.swiper-pagination-bullet { background: #fff !important; opacity: .5 !important; transition: all .3s; }
+.swiper-pagination-bullet-active { opacity: 1 !important; width: 28px !important; border-radius: 99px !important; background: #f28c28 !important; }
+
+.grain::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.12); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.range-thumb::-webkit-slider-thumb { pointer-events: auto; -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #fff; border: 3px solid #f28c28; box-shadow: 0 2px 8px rgba(15,30,61,.2); cursor: grab; }
+.range-thumb::-moz-range-thumb { pointer-events: auto; height: 16px; width: 16px; border-radius: 9999px; background: #fff; border: 3px solid #f28c28; cursor: grab; }
+.draw-line { stroke-dasharray: 220; stroke-dashoffset: 220; animation: draw 1s .5s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* Premium finish + stable responsive layout */
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-stack-h); }
+body { overflow-x: clip; }
+button, a, input, select, textarea { touch-action: manipulation; }
+:focus-visible { outline: 2px solid #f28c28; outline-offset: 3px; }
+img { max-width: 100%; }
+main { min-width: 0; }
+.container { min-width: 0; }
+@keyframes mn-loader-enter { from { transform: translateY(14px) scale(.92); opacity: 0 } to { transform: translateY(0) scale(1); opacity: 1 } }
+@keyframes mn-loader-orbit { to { transform: rotate(360deg); } }
+@keyframes mn-loader-progress { 0% { transform: translateX(-100%) } 60% { transform: translateX(22%) } 100% { transform: translateX(180%) } }
+.mn-splash-mark { animation: mn-loader-enter .65s cubic-bezier(.22,1,.36,1) both; }
+.mn-splash-orbit { animation: mn-loader-orbit 13s linear infinite; }
+.mn-splash-orbit:nth-child(2) { animation-direction: reverse; animation-duration: 16s; }
+.mn-splash-progress { width: 65%; animation: mn-loader-progress 1.65s cubic-bezier(.5,0,.3,1) infinite; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+@media(max-width: 640px) { .section { padding-top: 3.5rem; padding-bottom: 3.5rem; } h1 { overflow-wrap: break-word; } }
+
+/* Consistent interactive surfaces across catalog, product, account and checkout pages */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .shadow-soft, .shadow-card { transition: box-shadow .3s ease, transform .3s ease; }
+  .shadow-soft:hover { box-shadow: 0 18px 45px rgba(15,30,61,.11); }
+}
+@media (max-width: 767px) {
+  :root { --header-stack-h: 108px; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .h-section { line-height: 1.15; }
+  .btn, .btn-primary, .btn-dark, .btn-outline { min-height: 42px; }
+}
+
+/* Storefront-wide finishing details: coherent depth, typography and touch ergonomics. */
+body { background: #f8f9fc; }
+main > div { isolation: isolate; }
+.font-heading { font-feature-settings: "ss01" on; }
+.shadow-soft, .shadow-card { border-color: rgba(16, 34, 63, .055); }
+.input { min-height: 46px; }
+.input:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(242, 140, 40, .13); }
+.btn-primary { background-image: linear-gradient(115deg, #ec8425, #f49b3e); box-shadow: 0 11px 24px rgba(215, 117, 28, .2); }
+.btn-primary:hover { box-shadow: 0 15px 32px rgba(215, 117, 28, .3); }
+.btn-dark { background-image: linear-gradient(120deg, #101f3b, #203a66); }
+.section .h-section { text-wrap: balance; }
+article, section { min-width: 0; }
+@media (hover: hover) {
+  a, button { -webkit-tap-highlight-color: transparent; }
+  a:active, button:active { filter: saturate(1.08); }
+}
+@media (max-width: 440px) {
+  .h-section { font-size: clamp(1.75rem, 7.5vw, 2.5rem); }
+  .container { padding-inline: 14px; }
+  .input { font-size: 16px; }
+}
